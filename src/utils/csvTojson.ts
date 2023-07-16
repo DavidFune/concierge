@@ -1,4 +1,4 @@
-import { readFileSync, unlinkSync } from 'fs';
+import { readFileSync } from 'fs';
 
 export function csvToJson(filePath:string) {
 
