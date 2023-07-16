@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { unlinkSync } from 'fs';
 import { diskStorage } from 'multer';
 import { PaymentSlipService } from './paymentSlip.service';
-import { pdfToString } from 'src/utils/pdfTostring';
+import { pdfToString } from 'src/utils/pdfToString';
 
 @Controller('/payment-slip')
 export class PaymentSlipController {
@@ -38,13 +38,17 @@ export class PaymentSlipController {
                 break;
             case 'pdf':
                 const pdfString = await pdfToString(file.filename)
-                console.log(pdfString);
+                response = {
+                    paymentSlipp: pdfString,
+                    message: "Boletos criados com sucesso."
+                };
                 break;
 
             default:
                 throw new BadRequestException('Nenhuma ação pode ser tomada, envie um boleto .csv ou .pdf')
         }
 
+        return response;
     }
 
     @Get()
